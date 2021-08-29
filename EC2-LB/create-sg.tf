@@ -11,7 +11,7 @@ resource "aws_security_group" "test" {
   vpc_id      = aws_vpc.vpc.id
   
  
-  ingress = [{
+  ingress  {
     description      = "My public IP"
     protocol         = var.sg_ingress_proto
     from_port        = var.sg_ingress_ssh
@@ -20,22 +20,25 @@ resource "aws_security_group" "test" {
     ipv6_cidr_blocks = []
     prefix_list_ids  = []
     security_groups  = []
+   # security_groups  = ["${aws_security_group.elb-sg.id}"]
     self             = false
  
-  },
-  {
+  }
+
+  ingress  {
     description      = "My public IP"
     protocol         = var.sg_ingress_proto
     from_port        = var.sg_ingress_80
     to_port          = var.sg_ingress_80
-    cidr_blocks      = ["0.0.0.0/0"]
+    
+    security_groups = ["${aws_security_group.elb-sg.id}"]
+    cidr_blocks      = []
     ipv6_cidr_blocks = []
     prefix_list_ids  = []
-    security_groups  = []
     self             = false
  
   }
-  ]
+  
  
  
   egress = [{
@@ -53,11 +56,29 @@ resource "aws_security_group" "test" {
  
   tags = {
     "Owner" = var.owner
-    "Name"  = "${var.owner}-sg"
+    "Name"  = "${var.owner}-ec2-sg"
   }
 }
 
 
+
+
+############testing####temp
+# resource "aws_security_group" "test1" {
+#   # (resource arguments)
+# }
+
+
+# resource "aws_security_group_rule" "ingress_https" {
+
+
+#  type              = "ingress"
+#   from_port         = var.sg_ingress_443
+#   to_port           = var.sg_ingress_443
+#   protocol          = "tcp"
+#   security_groups = ["${aws_security_group.elb-sg.id}"]
+ 
+# }
 ##################### ELB SECURITY GROUP
 
 resource "aws_security_group" "elb-sg" {

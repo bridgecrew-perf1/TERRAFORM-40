@@ -11,8 +11,8 @@ terraform {
   backend "s3" {
     region  =  "us-east-1"
     profile = "default"
-    key     = "terraformbucket9892991"
-    bucket  = "terraformbucket9892991"
+    key     = "terraformbucket989299"
+    bucket  = "terraformbucket989299"
   }
 }
 

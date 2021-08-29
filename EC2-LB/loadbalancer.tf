@@ -17,7 +17,7 @@ resource "aws_elb" "pythonelb" {
     instance_protocol  = "http"
     lb_port            = 443
     lb_protocol        = "https"
-    ssl_certificate_id = "arn:aws:acm:us-east-1:265765232051:certificate/c9dae913-6d69-4f8c-9df6-41b31c960c29"
+    ssl_certificate_id = "arn:aws:acm:us-east-1:448051883053:certificate/047b160c-2074-43a0-b58e-4600b09d4b97"
   }
 
   health_check {
